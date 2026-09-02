@@ -79,7 +79,7 @@ function OpportunityCardRow({
   exporter: Exporter
   onRequestIntroduction: (subject: string) => void
 }) {
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
 
   return (
     <Card className="flex h-full flex-col gap-5">
@@ -97,33 +97,33 @@ function OpportunityCardRow({
             <p className="text-sm text-navy-600">{localize(exporter.county)}</p>
           </div>
           <StatusBadge tone={exporter.verificationStatus === 'Verified' ? 'success' : 'warning'}>
-            {exporter.verificationStatus === 'Verified' ? t('verified') : exporter.verificationStatus}
+            {exporter.verificationStatus === 'Verified' ? t('verified') : phrase(exporter.verificationStatus)}
           </StatusBadge>
         </div>
         <p className="text-sm leading-7 text-navy-700">{localize(exporter.overview)}</p>
         <div className="flex flex-wrap gap-2">
           {exporter.products.map((product) => (
             <StatusBadge key={product} tone="info">
-              {product}
+              {phrase(product)}
             </StatusBadge>
           ))}
         </div>
         <dl className="grid grid-cols-2 gap-3 text-sm">
           <div className="rounded-2xl bg-sand-50 p-3">
-            <dt className="text-navy-500">Readiness</dt>
+            <dt className="text-navy-500">{phrase('Readiness')}</dt>
             <dd className="mt-1 font-semibold text-navy-900">{exporter.readinessScore}%</dd>
           </div>
           <div className="rounded-2xl bg-sand-50 p-3">
-            <dt className="text-navy-500">Channel</dt>
-            <dd className="mt-1 font-semibold text-navy-900">{exporter.targetChannel}</dd>
+            <dt className="text-navy-500">{phrase('Channel')}</dt>
+            <dd className="mt-1 font-semibold text-navy-900">{phrase(exporter.targetChannel)}</dd>
           </div>
           <div className="rounded-2xl bg-sand-50 p-3">
-            <dt className="text-navy-500">Volume</dt>
-            <dd className="mt-1 font-semibold text-navy-900">{exporter.availableVolume}</dd>
+            <dt className="text-navy-500">{phrase('Volume')}</dt>
+            <dd className="mt-1 font-semibold text-navy-900">{phrase(exporter.availableVolume)}</dd>
           </div>
           <div className="rounded-2xl bg-sand-50 p-3">
-            <dt className="text-navy-500">Packaging</dt>
-            <dd className="mt-1 font-semibold text-navy-900">{exporter.packagingCapability}</dd>
+            <dt className="text-navy-500">{phrase('Packaging')}</dt>
+            <dd className="mt-1 font-semibold text-navy-900">{phrase(exporter.packagingCapability)}</dd>
           </div>
         </dl>
         <div className="flex flex-wrap gap-3">
@@ -142,34 +142,34 @@ function BuyerRequestCard({
 }: {
   request: BuyerRequest
 }) {
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
 
   return (
     <Card className="space-y-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="space-y-2">
           <h3 className="text-xl font-semibold text-navy-950">{localize(request.buyerName)}</h3>
-          <p className="text-sm text-navy-600">{localize(request.buyerType)} · {request.region}</p>
+          <p className="text-sm text-navy-600">{localize(request.buyerType)} · {phrase(request.region)}</p>
         </div>
-        <StatusBadge tone="info">{request.status}</StatusBadge>
+        <StatusBadge tone="info">{phrase(request.status)}</StatusBadge>
       </div>
       <p className="text-sm leading-7 text-navy-700">{localize(request.summary)}</p>
       <dl className="grid gap-3 text-sm md:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-2xl bg-sand-50 p-4">
-          <dt className="text-navy-500">Product</dt>
-          <dd className="mt-1 font-semibold text-navy-900">{request.productNeeded}</dd>
+          <dt className="text-navy-500">{phrase('Product')}</dt>
+          <dd className="mt-1 font-semibold text-navy-900">{phrase(request.productNeeded)}</dd>
         </div>
         <div className="rounded-2xl bg-sand-50 p-4">
-          <dt className="text-navy-500">Volume</dt>
+          <dt className="text-navy-500">{phrase('Volume')}</dt>
           <dd className="mt-1 font-semibold text-navy-900">{request.volume}</dd>
         </div>
         <div className="rounded-2xl bg-sand-50 p-4">
-          <dt className="text-navy-500">Timing</dt>
-          <dd className="mt-1 font-semibold text-navy-900">{request.targetTiming}</dd>
+          <dt className="text-navy-500">{phrase('Timing')}</dt>
+          <dd className="mt-1 font-semibold text-navy-900">{phrase(request.targetTiming)}</dd>
         </div>
         <div className="rounded-2xl bg-sand-50 p-4">
-          <dt className="text-navy-500">Packaging</dt>
-          <dd className="mt-1 font-semibold text-navy-900">{request.packagingNeeds}</dd>
+          <dt className="text-navy-500">{phrase('Packaging')}</dt>
+          <dd className="mt-1 font-semibold text-navy-900">{phrase(request.packagingNeeds)}</dd>
         </div>
       </dl>
       <div className="flex flex-wrap gap-3">
@@ -187,7 +187,7 @@ export function LandingPage({
 }: {
   onOpenSourcingRequest: () => void
 }) {
-  const { t } = useI18n()
+  const { phrase, t } = useI18n()
 
   return (
     <div className="mx-auto max-w-7xl space-y-16 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
@@ -196,12 +196,10 @@ export function LandingPage({
           <StatusBadge tone="info">{t('demoData')}</StatusBadge>
           <div className="space-y-5">
             <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-navy-950 sm:text-6xl">
-              From California’s producers to China’s buyers
+              {phrase('From California’s producers to China’s buyers')}
             </h1>
             <p className="max-w-3xl text-lg leading-8 text-navy-700">
-              Tri-Stone verifies participants and manages opportunities from product matching through
-              samples, compliance, logistics, pilot orders, and follow-up. This prototype demonstrates
-              a managed pathway for curated agricultural trade introductions.
+              {phrase('Tri-Stone verifies participants and manages opportunities from product matching through samples, compliance, logistics, pilot orders, and follow-up. This prototype demonstrates a managed pathway for curated agricultural trade introductions.')}
             </p>
           </div>
           <div className="flex flex-wrap gap-4">
@@ -212,15 +210,15 @@ export function LandingPage({
           </div>
           <dl className="grid gap-4 sm:grid-cols-3">
             <Card className="p-5">
-              <dt className="text-sm text-navy-500">Verified participants</dt>
+              <dt className="text-sm text-navy-500">{phrase('Verified participants')}</dt>
               <dd className="mt-2 text-2xl font-semibold text-navy-950">42</dd>
             </Card>
             <Card className="p-5">
-              <dt className="text-sm text-navy-500">Managed introductions</dt>
+              <dt className="text-sm text-navy-500">{phrase('Managed introductions')}</dt>
               <dd className="mt-2 text-2xl font-semibold text-navy-950">18</dd>
             </Card>
             <Card className="p-5">
-              <dt className="text-sm text-navy-500">Pilot programs</dt>
+              <dt className="text-sm text-navy-500">{phrase('Pilot programs')}</dt>
               <dd className="mt-2 text-2xl font-semibold text-navy-950">7</dd>
             </Card>
           </dl>
@@ -229,18 +227,18 @@ export function LandingPage({
           <div className="grid gap-4 bg-navy-950 p-4 sm:grid-cols-2">
             <img
               src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80"
-              alt="California orchards"
+              alt={phrase('California orchards')}
               className="h-72 w-full rounded-2xl object-cover"
             />
             <div className="grid gap-4">
               <img
                 src="https://images.unsplash.com/photo-1498579809087-ef1e558fd1da?auto=format&fit=crop&w=900&q=80"
-                alt="Curated export-ready products"
+                alt={phrase('Curated export-ready products')}
                 className="h-34 w-full rounded-2xl object-cover"
               />
               <img
                 src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80"
-                alt="Pacific trade logistics"
+                alt={phrase('Pacific trade logistics')}
                 className="h-34 w-full rounded-2xl object-cover"
               />
             </div>
@@ -261,8 +259,8 @@ export function LandingPage({
               },
             ].map((item) => (
               <div key={item.title} className="rounded-2xl bg-sand-50 p-4">
-                <p className="text-lg font-semibold text-navy-950">{item.title}</p>
-                <p className="mt-2 text-sm leading-7 text-navy-700">{item.detail}</p>
+                <p className="text-lg font-semibold text-navy-950">{phrase(item.title)}</p>
+                <p className="mt-2 text-sm leading-7 text-navy-700">{phrase(item.detail)}</p>
               </div>
             ))}
           </div>
@@ -271,9 +269,9 @@ export function LandingPage({
 
       <section id="how-it-works" className="space-y-6">
         <SectionHeading
-          eyebrow="Journey"
-          title="How it works"
-          description="A relationship-driven workflow that helps both sides qualify, test fit, coordinate compliance, and grow repeat business."
+          eyebrow={phrase('Journey')}
+          title={phrase('How it works')}
+          description={phrase('A relationship-driven workflow that helps both sides qualify, test fit, coordinate compliance, and grow repeat business.')}
         />
         <div className="grid gap-4 md:grid-cols-6">
           {journeyStages.map((stage, index) => (
@@ -281,19 +279,19 @@ export function LandingPage({
               <p className="text-sm font-semibold tracking-[0.2em] text-sage-600 uppercase">
                 {`0${index + 1}`}
               </p>
-              <p className="mt-4 text-xl font-semibold text-navy-950">{stage}</p>
+              <p className="mt-4 text-xl font-semibold text-navy-950">{phrase(stage)}</p>
               <p className="mt-2 text-sm text-navy-700">
                 {stage === 'Qualify'
-                  ? 'Verify fit, timing, and seriousness on both sides.'
+                  ? phrase('Verify fit, timing, and seriousness on both sides.')
                   : stage === 'Match'
-                    ? 'Shortlist exporters against buyer needs.'
+                    ? phrase('Shortlist exporters against buyer needs.')
                     : stage === 'Sample'
-                      ? 'Coordinate samples, feedback, and revisions.'
+                      ? phrase('Coordinate samples, feedback, and revisions.')
                       : stage === 'Prepare'
-                        ? 'Align packaging, documentation, and logistics.'
+                        ? phrase('Align packaging, documentation, and logistics.')
                         : stage === 'Pilot order'
-                          ? 'Run a controlled first order with shared visibility.'
-                          : 'Scale the relationship based on measured pilot success.'}
+                          ? phrase('Run a controlled first order with shared visibility.')
+                          : phrase('Scale the relationship based on measured pilot success.')}
               </p>
             </Card>
           ))}
@@ -303,15 +301,15 @@ export function LandingPage({
       <section id="categories" className="space-y-6">
         <SectionHeading
           eyebrow={t('productCategories')}
-          title="California categories ready for managed introductions"
-          description="The prototype is seeded with realistic product pathways across premium snacks, fresh produce, wine, and food ingredients."
+          title={phrase('California categories ready for managed introductions')}
+          description={phrase('The prototype is seeded with realistic product pathways across premium snacks, fresh produce, wine, and food ingredients.')}
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {featuredCategories.map((category) => (
             <Card key={category} className="p-5">
-              <p className="text-lg font-semibold text-navy-950">{category}</p>
+              <p className="text-lg font-semibold text-navy-950">{phrase(category)}</p>
               <p className="mt-2 text-sm leading-7 text-navy-700">
-                Curated exporter profiles, buyer demand signals, and managed next steps for pilot-order readiness.
+                {phrase('Curated exporter profiles, buyer demand signals, and managed next steps for pilot-order readiness.')}
               </p>
             </Card>
           ))}
@@ -320,9 +318,9 @@ export function LandingPage({
 
       <section id="trust" className="space-y-6">
         <SectionHeading
-          eyebrow="Trust layer"
+          eyebrow={phrase('Trust layer')}
           title={t('trustTitle')}
-          description="Tri-Stone manages introductions, private deal rooms, and progress checkpoints. It does not act as a customs authority, law firm, or regulator."
+          description={phrase('Tri-Stone manages introductions, private deal rooms, and progress checkpoints. It does not act as a customs authority, law firm, or regulator.')}
         />
         <div className="grid gap-4 lg:grid-cols-3">
           {[
@@ -340,8 +338,8 @@ export function LandingPage({
             },
           ].map((item) => (
             <Card key={item.title}>
-              <p className="text-xl font-semibold text-navy-950">{item.title}</p>
-              <p className="mt-3 text-sm leading-7 text-navy-700">{item.detail}</p>
+              <p className="text-xl font-semibold text-navy-950">{phrase(item.title)}</p>
+              <p className="mt-3 text-sm leading-7 text-navy-700">{phrase(item.detail)}</p>
             </Card>
           ))}
         </div>
@@ -350,13 +348,13 @@ export function LandingPage({
       <footer className="rounded-3xl bg-navy-950 px-6 py-8 text-sm text-cream-100">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="font-semibold">Shuoguo Leilei · Tri-Stone prototype</p>
-            <p className="mt-2 text-cream-100/75">Demonstration-only interface with local mock data.</p>
+            <p className="font-semibold">{phrase('Shuoguo Leilei')} · {phrase('Tri-Stone prototype')}</p>
+            <p className="mt-2 text-cream-100/75">{phrase('Demonstration-only interface with local mock data.')}</p>
           </div>
           <div className="flex flex-wrap gap-4 text-cream-100/90">
             {['About', 'Services', 'Privacy', 'Contact', 'AmCham', 'Industry partner'].map((label) => (
               <a key={label} href="/" onClick={(event) => event.preventDefault()}>
-                {label}
+                {phrase(label)}
               </a>
             ))}
           </div>
@@ -367,7 +365,7 @@ export function LandingPage({
 }
 
 export function DashboardPage() {
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
   const [feedMode, setFeedMode] = useState<'loading' | 'ready' | 'error'>('loading')
   const [feedRefreshToken, setFeedRefreshToken] = useState(0)
   const [cards, setCards] = useState(opportunityPipeline)
@@ -400,20 +398,20 @@ export function DashboardPage() {
   return (
     <div className="space-y-8">
       <SectionHeading
-        eyebrow="Dashboard"
-        title="Managed opportunity overview"
-        description="Track qualified introductions, active samples, compliance workstreams, and pilot-order deadlines across the platform."
+        eyebrow={phrase('Dashboard')}
+        title={phrase('Managed opportunity overview')}
+        description={phrase('Track qualified introductions, active samples, compliance workstreams, and pilot-order deadlines across the platform.')}
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {summaryCards.map((card) => (
-          <MetricCard key={card.labelKey} label={t(card.labelKey)} value={card.value} change={card.change} />
+          <MetricCard key={card.labelKey} label={t(card.labelKey)} value={card.value} change={phrase(card.change)} />
         ))}
       </div>
       <div className="grid gap-6 xl:grid-cols-[1.6fr_0.9fr]">
         <Card className="space-y-5">
           <SectionHeading
             title={t('recentActivity')}
-            description="A realistic local-state feed showing how managed opportunities progress across packaging, samples, and partner coordination."
+            description={phrase('A realistic local-state feed showing how managed opportunities progress across packaging, samples, and partner coordination.')}
             actions={
               <>
                 <ActionButton
@@ -436,7 +434,7 @@ export function DashboardPage() {
           ) : feedMode === 'error' ? (
             <ErrorPanel
               title={t('error')}
-              description="The demo activity feed occasionally surfaces a sync interruption to illustrate a recoverable error state."
+              description={phrase('The demo activity feed occasionally surfaces a sync interruption to illustrate a recoverable error state.')}
               onRetry={() => setFeedMode('ready')}
             />
           ) : (
@@ -448,7 +446,7 @@ export function DashboardPage() {
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="font-semibold text-navy-950">{localize(item.title)}</p>
-                    <StatusBadge tone={item.tone}>{item.time}</StatusBadge>
+                    <StatusBadge tone={item.tone}>{phrase(item.time)}</StatusBadge>
                   </div>
                   <p className="mt-2 text-sm leading-7 text-navy-700">{localize(item.detail)}</p>
                 </div>
@@ -463,7 +461,7 @@ export function DashboardPage() {
             {deadlines.map((item) => (
               <div key={item.id} className="rounded-2xl bg-sand-50 p-4">
                 <p className="font-semibold text-navy-950">{localize(item.title)}</p>
-                <p className="mt-2 text-sm text-navy-700">{item.owner} · {item.due}</p>
+                <p className="mt-2 text-sm text-navy-700">{phrase(item.owner)} · {phrase(item.due)}</p>
               </div>
             ))}
           </Card>
@@ -472,8 +470,8 @@ export function DashboardPage() {
             {meetings.map((item) => (
               <div key={item.id} className="rounded-2xl bg-sand-50 p-4">
                 <p className="font-semibold text-navy-950">{localize(item.title)}</p>
-                <p className="mt-2 text-sm text-navy-700">{item.time}</p>
-                <p className="mt-1 text-sm text-navy-600">{item.attendees}</p>
+                <p className="mt-2 text-sm text-navy-700">{phrase(item.time)}</p>
+                <p className="mt-1 text-sm text-navy-600">{phrase(item.attendees)}</p>
               </div>
             ))}
           </Card>
@@ -482,8 +480,8 @@ export function DashboardPage() {
 
       <div className="space-y-5">
         <SectionHeading
-          title="Opportunity pipeline"
-          description="Drag cards between stages or use the stage movement controls to simulate a managed progression from qualification to repeat business."
+          title={phrase('Opportunity pipeline')}
+          description={phrase('Drag cards between stages or use the stage movement controls to simulate a managed progression from qualification to repeat business.')}
         />
         <div className="grid gap-4 xl:grid-cols-6">
           {journeyStages.map((stage, index) => {
@@ -502,14 +500,14 @@ export function DashboardPage() {
               >
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-sm font-semibold tracking-[0.18em] text-sage-600 uppercase">
-                    {stage}
+                    {phrase(stage)}
                   </p>
                   <StatusBadge tone="info">{stageCards.length}</StatusBadge>
                 </div>
                 <div className="space-y-3">
                   {stageCards.length === 0 ? (
                     <div className="rounded-2xl border border-dashed border-navy-200 bg-sand-50 px-3 py-6 text-center text-sm text-navy-500">
-                      Drop here
+                      {phrase('Drop here')}
                     </div>
                   ) : (
                     stageCards.map((card) => (
@@ -521,11 +519,11 @@ export function DashboardPage() {
                       >
                         <div>
                           <p className="font-semibold text-navy-950">{localize(card.title)}</p>
-                          <p className="mt-1 text-xs text-navy-600">{card.buyer}</p>
-                          <p className="text-xs text-navy-600">{card.exporter}</p>
+                          <p className="mt-1 text-xs text-navy-600">{phrase(card.buyer)}</p>
+                          <p className="text-xs text-navy-600">{phrase(card.exporter)}</p>
                         </div>
                         <div className="flex items-center justify-between text-xs text-navy-500">
-                          <span>{card.dueDate}</span>
+                          <span>{phrase(card.dueDate)}</span>
                           <span>{card.value}</span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -564,7 +562,7 @@ export function ExporterDirectoryPage({
 }: {
   onRequestIntroduction: (subject: string) => void
 }) {
-  const { t } = useI18n()
+  const { phrase, t } = useI18n()
   const ready = useDelayedReady()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('All')
@@ -593,8 +591,8 @@ export function ExporterDirectoryPage({
     <div className="space-y-8">
       <SectionHeading
         eyebrow={t('exporters')}
-        title="Verified California exporter directory"
-        description="Search and filter fictional export-ready producers by category, certifications, readiness, volume, packaging, and channel fit."
+        title={phrase('Verified California exporter directory')}
+        description={phrase('Search and filter fictional export-ready producers by category, certifications, readiness, volume, packaging, and channel fit.')}
       />
       <Card className="space-y-4">
         <div className="grid gap-4 lg:grid-cols-[1.5fr_repeat(3,1fr)]">
@@ -603,7 +601,7 @@ export function ExporterDirectoryPage({
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Almonds, wine, citrus…"
+              placeholder={phrase('Almonds, wine, citrus…')}
               className="w-full rounded-2xl border border-navy-200 bg-sand-50 px-4 py-3 outline-none focus:border-sage-500"
             />
           </label>
@@ -620,7 +618,7 @@ export function ExporterDirectoryPage({
       ) : filtered.length === 0 ? (
         <EmptyState
           title={t('noResults')}
-          description="Try broadening one of the filters to surface other verified California exporter profiles."
+          description={phrase('Try broadening one of the filters to surface other verified California exporter profiles.')}
         />
       ) : (
         <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
@@ -648,9 +646,11 @@ function SelectField({
   onChange: (value: string) => void
   options: string[]
 }) {
+  const { phrase } = useI18n()
+
   return (
     <label className="space-y-2 text-sm font-medium text-navy-700">
-      {label}
+      {phrase(label)}
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -658,7 +658,7 @@ function SelectField({
       >
         {options.map((option) => (
           <option key={option} value={option}>
-            {option}
+            {phrase(option)}
           </option>
         ))}
       </select>
@@ -672,14 +672,14 @@ export function ExporterProfilePage({
   onRequestIntroduction: (subject: string) => void
 }) {
   const { exporterId } = useParams()
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
   const exporter = exporters.find((item) => item.id === exporterId)
 
   if (!exporter) {
     return (
       <ErrorPanel
-        title="Exporter not found"
-        description="The requested exporter profile is not available in the current demonstration dataset."
+        title={phrase('Exporter not found')}
+        description={phrase('The requested exporter profile is not available in the current demonstration dataset.')}
       />
     )
   }
@@ -706,48 +706,48 @@ export function ExporterProfilePage({
           </div>
           <p className="text-base leading-8 text-navy-700">{localize(exporter.overview)}</p>
           <Card className="bg-sand-50">
-            <p className="text-sm font-semibold tracking-[0.2em] text-sage-600 uppercase">Origin story</p>
+            <p className="text-sm font-semibold tracking-[0.2em] text-sage-600 uppercase">{phrase('Origin story')}</p>
             <p className="mt-3 text-sm leading-7 text-navy-700">{localize(exporter.originStory)}</p>
           </Card>
           <DetailList
             items={[
-              { label: 'Formats', value: exporter.formats.join(' · ') },
-              { label: 'Seasonality', value: exporter.seasonality.join(' · ') },
-              { label: 'Capacity', value: exporter.capacity },
-              { label: 'Minimum order', value: exporter.minimumOrder },
-              { label: 'Packaging', value: exporter.packagingCapability },
-              { label: 'Current export markets', value: exporter.currentExportMarkets.join(', ') },
+              { label: 'Formats', value: exporter.formats.map((item) => phrase(item)).join(' · ') },
+              { label: 'Seasonality', value: exporter.seasonality.map((item) => phrase(item)).join(' · ') },
+              { label: 'Capacity', value: phrase(exporter.capacity) },
+              { label: 'Minimum order', value: phrase(exporter.minimumOrder) },
+              { label: 'Packaging', value: phrase(exporter.packagingCapability) },
+              { label: 'Current export markets', value: exporter.currentExportMarkets.map((item) => phrase(item)).join(', ') },
             ]}
           />
         </Card>
         <div className="space-y-6">
           <Card className="space-y-4">
-            <SectionHeading title="Export readiness" />
-            <ProgressBar label="Managed readiness score" value={exporter.readinessScore} />
+            <SectionHeading title={phrase('Export readiness')} />
+            <ProgressBar label={phrase('Managed readiness score')} value={exporter.readinessScore} />
             <div className="grid gap-3 text-sm md:grid-cols-2 xl:grid-cols-1">
               <div className="rounded-2xl bg-sand-50 p-4">
-                <p className="text-navy-500">Verification status</p>
-                <p className="mt-2 font-semibold text-navy-950">{exporter.verificationStatus}</p>
+                <p className="text-navy-500">{phrase('Verification status')}</p>
+                <p className="mt-2 font-semibold text-navy-950">{phrase(exporter.verificationStatus)}</p>
               </div>
               <div className="rounded-2xl bg-sand-50 p-4">
-                <p className="text-navy-500">Channel fit</p>
-                <p className="mt-2 font-semibold text-navy-950">{exporter.targetChannel}</p>
+                <p className="text-navy-500">{phrase('Channel fit')}</p>
+                <p className="mt-2 font-semibold text-navy-950">{phrase(exporter.targetChannel)}</p>
               </div>
             </div>
           </Card>
           <Card className="space-y-4">
-            <SectionHeading title="Compliance & documentation" />
+            <SectionHeading title={phrase('Compliance & documentation')} />
             {exporter.documentationChecklist.map((item) => (
               <div key={item.label} className="flex items-center justify-between rounded-2xl bg-sand-50 p-4">
-                <span className="text-sm text-navy-800">{item.label}</span>
+                <span className="text-sm text-navy-800">{phrase(item.label)}</span>
                 <StatusBadge tone={item.complete ? 'success' : 'warning'}>
-                  {item.complete ? 'Ready' : 'In progress'}
+                  {item.complete ? phrase('Ready') : phrase('In progress')}
                 </StatusBadge>
               </div>
             ))}
           </Card>
           <Card className="space-y-4">
-            <SectionHeading title="Marketing assets" />
+            <SectionHeading title={phrase('Marketing assets')} />
             {exporter.marketingAssets.map((asset) => (
               <a
                 key={asset}
@@ -755,8 +755,8 @@ export function ExporterProfilePage({
                 download
                 className="flex items-center justify-between rounded-2xl bg-sand-50 px-4 py-3 text-sm font-medium text-navy-800"
               >
-                <span>{asset}</span>
-                <span>Download</span>
+                <span>{phrase(asset)}</span>
+                <span>{phrase('Download')}</span>
               </a>
             ))}
           </Card>
@@ -770,24 +770,24 @@ export function ExporterProfilePage({
         </div>
       </div>
       <Card className="space-y-4">
-        <SectionHeading title="Products, grades, formats & seasonality" />
+        <SectionHeading title={phrase('Products, grades, formats & seasonality')} />
         <div className="overflow-x-auto">
           <table className="min-w-full text-left text-sm">
             <thead className="text-navy-500">
               <tr>
-                <th className="pb-3">Product</th>
-                <th className="pb-3">Grade</th>
-                <th className="pb-3">Format</th>
-                <th className="pb-3">Seasonality</th>
+                <th className="pb-3">{phrase('Product')}</th>
+                <th className="pb-3">{phrase('Grade')}</th>
+                <th className="pb-3">{phrase('Format')}</th>
+                <th className="pb-3">{phrase('Seasonality')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-sand-100">
               {exporter.productLines.map((item) => (
                 <tr key={item.name}>
-                  <td className="py-4 font-medium text-navy-950">{item.name}</td>
-                  <td className="py-4 text-navy-700">{item.grade}</td>
-                  <td className="py-4 text-navy-700">{item.format}</td>
-                  <td className="py-4 text-navy-700">{item.season}</td>
+                  <td className="py-4 font-medium text-navy-950">{phrase(item.name)}</td>
+                  <td className="py-4 text-navy-700">{phrase(item.grade)}</td>
+                  <td className="py-4 text-navy-700">{phrase(item.format)}</td>
+                  <td className="py-4 text-navy-700">{phrase(item.season)}</td>
                 </tr>
               ))}
             </tbody>
@@ -799,6 +799,7 @@ export function ExporterProfilePage({
 }
 
 export function BuyerRequestsPage() {
+  const { phrase } = useI18n()
   const ready = useDelayedReady()
   const [category, setCategory] = useState('All')
   const [channel, setChannel] = useState('All')
@@ -823,9 +824,9 @@ export function BuyerRequestsPage() {
   return (
     <div className="space-y-8">
       <SectionHeading
-        eyebrow="Demand"
-        title="Verified buyer sourcing requests"
-        description="Fictional briefs from importers, distributors, retailers, foodservice buyers, and e-commerce operators in China."
+        eyebrow={phrase('Demand')}
+        title={phrase('Verified buyer sourcing requests')}
+        description={phrase('Fictional briefs from importers, distributors, retailers, foodservice buyers, and e-commerce operators in China.')}
       />
       <Card className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
@@ -840,8 +841,8 @@ export function BuyerRequestsPage() {
         <LoadingPanel />
       ) : filtered.length === 0 ? (
         <EmptyState
-          title="No requests match these filters"
-          description="Broaden the region, category, or timing filters to reveal additional sourcing opportunities."
+          title={phrase('No requests match these filters')}
+          description={phrase('Broaden the region, category, or timing filters to reveal additional sourcing opportunities.')}
         />
       ) : (
         <div className="space-y-6">
@@ -860,14 +861,14 @@ export function BuyerRequestDetailPage({
   onRequestIntroduction: (subject: string) => void
 }) {
   const { requestId } = useParams()
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
   const request = buyerRequests.find((item) => item.id === requestId)
 
   if (!request) {
     return (
       <ErrorPanel
-        title="Buyer request not found"
-        description="The requested sourcing brief is not available in the current demonstration dataset."
+        title={phrase('Buyer request not found')}
+        description={phrase('The requested sourcing brief is not available in the current demonstration dataset.')}
       />
     )
   }
@@ -879,29 +880,29 @@ export function BuyerRequestDetailPage({
       </Link>
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <Card className="space-y-6">
-          <StatusBadge tone="info">{request.status}</StatusBadge>
+          <StatusBadge tone="info">{phrase(request.status)}</StatusBadge>
           <div className="space-y-2">
             <h1 className="text-4xl font-semibold tracking-tight text-navy-950">{localize(request.buyerName)}</h1>
-            <p className="text-sm text-navy-600">{localize(request.buyerType)} · {request.region}</p>
+            <p className="text-sm text-navy-600">{localize(request.buyerType)} · {phrase(request.region)}</p>
           </div>
           <p className="text-base leading-8 text-navy-700">{localize(request.summary)}</p>
           <DetailList
             items={[
-              { label: { en: 'Product needed', zh: '需求产品' }, value: request.productNeeded },
+              { label: { en: 'Product needed', zh: '需求产品' }, value: phrase(request.productNeeded) },
               { label: { en: 'Intended use', zh: '用途' }, value: localize(request.intendedUse) },
               { label: { en: 'Volume', zh: '需求量' }, value: request.volume },
-              { label: { en: 'Target timing', zh: '目标时间' }, value: request.targetTiming },
-              { label: { en: 'Certifications', zh: '认证要求' }, value: request.certifications.join(', ') },
-              { label: { en: 'Packaging needs', zh: '包装需求' }, value: request.packagingNeeds },
+              { label: { en: 'Target timing', zh: '目标时间' }, value: phrase(request.targetTiming) },
+              { label: { en: 'Certifications', zh: '认证要求' }, value: request.certifications.map((item) => phrase(item)).join(', ') },
+              { label: { en: 'Packaging needs', zh: '包装需求' }, value: phrase(request.packagingNeeds) },
             ]}
           />
           <Card className="bg-sand-50">
-            <p className="text-sm font-semibold tracking-[0.2em] text-sage-600 uppercase">Structured requirements</p>
+            <p className="text-sm font-semibold tracking-[0.2em] text-sage-600 uppercase">{phrase('Structured requirements')}</p>
             <div className="mt-4 space-y-3">
               {request.requirements.map((item) => (
                 <div key={item.label.en} className="rounded-2xl bg-white p-4">
                   <p className="text-sm font-semibold text-navy-900">{localize(item.label)}</p>
-                  <p className="mt-2 text-sm text-navy-700">{item.value}</p>
+                  <p className="mt-2 text-sm text-navy-700">{phrase(item.value)}</p>
                 </div>
               ))}
             </div>
@@ -909,21 +910,21 @@ export function BuyerRequestDetailPage({
         </Card>
         <div className="space-y-6">
           <Card className="space-y-4">
-            <SectionHeading title="Buyer verification" />
+            <SectionHeading title={phrase('Buyer verification')} />
             <p className="text-sm leading-7 text-navy-700">{localize(request.verificationNotes)}</p>
             <div className="grid gap-3 text-sm md:grid-cols-2 xl:grid-cols-1">
               <div className="rounded-2xl bg-sand-50 p-4">
-                <p className="text-navy-500">Channel</p>
-                <p className="mt-2 font-semibold text-navy-950">{request.channel}</p>
+                <p className="text-navy-500">{phrase('Channel')}</p>
+                <p className="mt-2 font-semibold text-navy-950">{phrase(request.channel)}</p>
               </div>
               <div className="rounded-2xl bg-sand-50 p-4">
-                <p className="text-navy-500">Order size</p>
-                <p className="mt-2 font-semibold text-navy-950">{request.orderSize}</p>
+                <p className="text-navy-500">{phrase('Order size')}</p>
+                <p className="mt-2 font-semibold text-navy-950">{phrase(request.orderSize)}</p>
               </div>
             </div>
           </Card>
           <Card className="space-y-4">
-            <SectionHeading title="Recommended exporter matches" />
+            <SectionHeading title={phrase('Recommended exporter matches')} />
             {request.matches.map((match) => {
               const exporter = exporters.find((item) => item.id === match.exporterId)
 
@@ -940,7 +941,7 @@ export function BuyerRequestDetailPage({
                     </div>
                     <StatusBadge tone="success">{match.matchPercent}%</StatusBadge>
                   </div>
-                  <ProgressBar label="Match strength" value={match.matchPercent} />
+                  <ProgressBar label={phrase('Match strength')} value={match.matchPercent} />
                   <p className="mt-3 text-sm leading-7 text-navy-700">{localize(match.explanation)}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <ActionButton tone="secondary" to={`/exporters/${exporter.id}`}>
@@ -974,7 +975,7 @@ export function BuyerRequestDetailPage({
 const dealRoomTabs = ['Messages', 'Product Specifications', 'Samples', 'Documents', 'Tasks', 'Commercial Terms', 'Shipment'] as const
 
 export function DealRoomPage() {
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
   const location = useLocation()
   const queryTab = new URLSearchParams(location.search).get('tab')
   const [activeTab, setActiveTab] = useState<typeof dealRoomTabs[number]>(
@@ -984,7 +985,7 @@ export function DealRoomPage() {
   return (
     <div className="space-y-8">
       <SectionHeading
-        eyebrow="Private room"
+      eyebrow={phrase('Private room')}
         title={localize(dealRoom.title)}
         description={localize(dealRoom.summary)}
       />
@@ -992,13 +993,13 @@ export function DealRoomPage() {
       <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
         <div className="space-y-6">
           <Card className="space-y-4">
-            <SectionHeading title="Participants" />
+            <SectionHeading title={phrase('Participants')} />
             {dealRoom.participants.map((participant) => (
               <div key={participant.name} className="rounded-2xl bg-sand-50 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="font-semibold text-navy-950">{participant.name}</p>
                   <StatusBadge tone={participant.side === 'Buyer' ? 'info' : participant.side === 'Exporter' ? 'success' : 'warning'}>
-                    {participant.side}
+                    {phrase(participant.side)}
                   </StatusBadge>
                 </div>
                 <p className="mt-2 text-sm text-navy-700">{localize(participant.role)}</p>
@@ -1006,25 +1007,25 @@ export function DealRoomPage() {
             ))}
           </Card>
           <Card className="space-y-4">
-            <SectionHeading title="Sample tracker" />
+            <SectionHeading title={phrase('Sample tracker')} />
             <div className="space-y-3">
               {dealRoom.sampleSteps.map((step) => (
                 <div key={step.label} className="flex items-center justify-between rounded-2xl bg-sand-50 p-4">
-                  <span className="text-sm text-navy-800">{step.label}</span>
+                  <span className="text-sm text-navy-800">{phrase(step.label)}</span>
                   <StatusBadge tone={step.complete ? 'success' : 'warning'}>
-                    {step.complete ? 'Complete' : 'Pending'}
+                    {step.complete ? phrase('Complete') : phrase('Pending')}
                   </StatusBadge>
                 </div>
               ))}
             </div>
           </Card>
           <Card className="space-y-4">
-            <SectionHeading title="Pilot-order progress" />
+            <SectionHeading title={phrase('Pilot-order progress')} />
             <div className="space-y-3">
               {dealRoom.timeline.map((step) => (
                 <div key={step.label} className="flex items-center gap-3 rounded-2xl bg-sand-50 p-4">
                   <div className={cn('h-3 w-3 rounded-full', step.complete ? 'bg-sage-500' : 'bg-gold-300')} />
-                  <span className="text-sm text-navy-800">{step.label}</span>
+                  <span className="text-sm text-navy-800">{phrase(step.label)}</span>
                 </div>
               ))}
             </div>
@@ -1057,8 +1058,8 @@ export function DealRoomPage() {
               {dealRoom.messages.map((message) => (
                 <div key={`${message.sender}-${message.time}`} className="rounded-2xl bg-sand-50 p-4">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="font-semibold text-navy-950">{message.sender}</p>
-                    <StatusBadge tone="info">{message.role} · {message.time}</StatusBadge>
+                    <p className="font-semibold text-navy-950">{phrase(message.sender)}</p>
+                    <StatusBadge tone="info">{phrase(message.role)} · {phrase(message.time)}</StatusBadge>
                   </div>
                   <p className="mt-3 text-sm leading-7 text-navy-700">{localize(message.body)}</p>
                 </div>
@@ -1071,12 +1072,12 @@ export function DealRoomPage() {
           {activeTab === 'Samples' ? (
             <div className="grid gap-4 md:grid-cols-2">
               <Card className="bg-sand-50">
-                <p className="text-lg font-semibold text-navy-950">Current stage</p>
-                <p className="mt-3 text-sm text-navy-700">{dealRoom.sampleStage}</p>
+                <p className="text-lg font-semibold text-navy-950">{phrase('Current stage')}</p>
+                <p className="mt-3 text-sm text-navy-700">{phrase(dealRoom.sampleStage)}</p>
               </Card>
               <Card className="bg-sand-50">
-                <p className="text-lg font-semibold text-navy-950">Tracking note</p>
-                <p className="mt-3 text-sm text-navy-700">Sample cartons departed Modesto pack facility and are moving to Oakland consolidation.</p>
+                <p className="text-lg font-semibold text-navy-950">{phrase('Tracking note')}</p>
+                <p className="mt-3 text-sm text-navy-700">{phrase('Sample cartons departed Modesto pack facility and are moving to Oakland consolidation.')}</p>
               </Card>
             </div>
           ) : null}
@@ -1085,9 +1086,9 @@ export function DealRoomPage() {
             <div className="space-y-4">
               {dealRoom.documents.map((document) => (
                 <div key={document.name} className="flex items-center justify-between rounded-2xl bg-sand-50 p-4">
-                  <span className="text-sm text-navy-800">{document.name}</span>
+                  <span className="text-sm text-navy-800">{phrase(document.name)}</span>
                   <StatusBadge tone={document.status === 'Ready' ? 'success' : document.status === 'Private' ? 'warning' : 'info'}>
-                    {document.status}
+                    {phrase(document.status)}
                   </StatusBadge>
                 </div>
               ))}
@@ -1099,10 +1100,10 @@ export function DealRoomPage() {
               {dealRoom.tasks.map((task) => (
                 <div key={task.name} className="rounded-2xl bg-sand-50 p-4">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="font-semibold text-navy-950">{task.name}</p>
-                    <StatusBadge tone={task.done ? 'success' : 'warning'}>{task.done ? 'Done' : 'Open'}</StatusBadge>
+                    <p className="font-semibold text-navy-950">{phrase(task.name)}</p>
+                    <StatusBadge tone={task.done ? 'success' : 'warning'}>{task.done ? phrase('Done') : phrase('Open')}</StatusBadge>
                   </div>
-                  <p className="mt-2 text-sm text-navy-700">{task.owner} · {task.due}</p>
+                  <p className="mt-2 text-sm text-navy-700">{phrase(task.owner)} · {phrase(task.due)}</p>
                 </div>
               ))}
             </div>
@@ -1122,7 +1123,7 @@ export function PartnersPage({
 }: {
   onRequestIntroduction: (subject: string) => void
 }) {
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
   const [selectedService, setSelectedService] = useState('All')
 
   const services = ['All', 'Freight forwarder', 'Customs broker', 'Cold-chain operator', 'Regulatory adviser', 'Testing lab', 'Localization agency', 'Trademark attorney', 'Trade-finance provider']
@@ -1133,14 +1134,14 @@ export function PartnersPage({
     <div className="space-y-8">
       <SectionHeading
         eyebrow={t('partners')}
-        title="Verified service-partner directory"
-        description="Fictional partner cards for logistics, localization, advisory, testing, legal, and finance support across managed opportunities."
+        title={phrase('Verified service-partner directory')}
+        description={phrase('Fictional partner cards for logistics, localization, advisory, testing, legal, and finance support across managed opportunities.')}
       />
       <div className="flex flex-wrap gap-3">
         {services.map((service) => (
           <FilterChip
             key={service}
-            label={service}
+            label={phrase(service)}
             active={selectedService === service}
             onClick={() => setSelectedService(service)}
           />
@@ -1155,14 +1156,14 @@ export function PartnersPage({
                 <p className="mt-1 text-sm text-navy-600">{localize(partner.specialty)}</p>
               </div>
               <StatusBadge tone={partner.verified ? 'success' : 'warning'}>
-                {partner.verified ? t('verified') : 'Shortlisted'}
+                {partner.verified ? t('verified') : phrase('Shortlisted')}
               </StatusBadge>
             </div>
             <p className="text-sm leading-7 text-navy-700">{localize(partner.description)}</p>
             <div className="space-y-2 text-sm text-navy-700">
-              <p><span className="font-semibold text-navy-900">Services:</span> {partner.services.join(', ')}</p>
-              <p><span className="font-semibold text-navy-900">Regions:</span> {partner.regions.join(', ')}</p>
-              <p><span className="font-semibold text-navy-900">Languages:</span> {partner.languages.join(', ')}</p>
+              <p><span className="font-semibold text-navy-900">{phrase('Services')}:</span> {partner.services.map((item) => phrase(item)).join(', ')}</p>
+              <p><span className="font-semibold text-navy-900">{phrase('Regions')}:</span> {partner.regions.map((item) => phrase(item)).join(', ')}</p>
+              <p><span className="font-semibold text-navy-900">{phrase('Languages')}:</span> {partner.languages.map((item) => phrase(item)).join(', ')}</p>
             </div>
             <ActionButton onClick={() => onRequestIntroduction(partner.name)}>{t('contactPartner')}</ActionButton>
           </Card>
@@ -1173,7 +1174,7 @@ export function PartnersPage({
 }
 
 export function MarketIntelligencePage() {
-  const { localize, t } = useI18n()
+  const { localize, phrase, t } = useI18n()
   const [status, setStatus] = useState<'ready' | 'loading' | 'error'>('ready')
 
   useEffect(() => {
@@ -1189,12 +1190,12 @@ export function MarketIntelligencePage() {
     <div className="space-y-8">
       <SectionHeading
         eyebrow={t('marketIntelligence')}
-        title="Demonstration market intelligence"
-        description="Attractive placeholder charts and notes showing how the platform might frame buyer demand, barriers, and launch insights."
+        title={phrase('Demonstration market intelligence')}
+        description={phrase('Attractive placeholder charts and notes showing how the platform might frame buyer demand, barriers, and launch insights.')}
         actions={
           <>
             <ActionButton tone="secondary" onClick={() => setStatus('loading')}>
-              Refresh demo report
+              {phrase('Refresh demo report')}
             </ActionButton>
             <ActionButton tone="secondary" onClick={() => setStatus('error')}>
               {t('simulateIssue')}
@@ -1208,41 +1209,41 @@ export function MarketIntelligencePage() {
       ) : status === 'error' ? (
         <ErrorPanel
           title={t('error')}
-          description="This mock sync interruption demonstrates how the page handles recoverable data issues."
+          description={phrase('This mock sync interruption demonstrates how the page handles recoverable data issues.')}
           onRetry={() => setStatus('ready')}
         />
       ) : (
         <>
           <div className="grid gap-6 xl:grid-cols-2">
             <Card className="space-y-4">
-              <SectionHeading title="Buyer interest by product category" />
-              <BarChart items={interestByCategory.map((item) => ({ label: item.label, value: item.value, note: localize(item.note) }))} />
+              <SectionHeading title={phrase('Buyer interest by product category')} />
+              <BarChart items={interestByCategory.map((item) => ({ label: phrase(item.label), value: item.value, note: localize(item.note) }))} />
             </Card>
             <Card className="space-y-4">
-              <SectionHeading title="Buyer interest by channel" />
-              <BarChart items={interestByChannel.map((item) => ({ label: item.label, value: item.value, note: localize(item.note) }))} />
+              <SectionHeading title={phrase('Buyer interest by channel')} />
+              <BarChart items={interestByChannel.map((item) => ({ label: phrase(item.label), value: item.value, note: localize(item.note) }))} />
             </Card>
             <Card className="space-y-4">
-              <SectionHeading title="Target-region traction" />
-              <BarChart items={interestByRegion.map((item) => ({ label: item.label, value: item.value, note: localize(item.note) }))} />
+              <SectionHeading title={phrase('Target-region traction')} />
+              <BarChart items={interestByRegion.map((item) => ({ label: phrase(item.label), value: item.value, note: localize(item.note) }))} />
             </Card>
             <Card className="space-y-4">
-              <SectionHeading title="Common barriers" />
-              <BarChart items={barriers.map((item) => ({ label: item.label, value: item.value, note: localize(item.note) }))} />
+              <SectionHeading title={phrase('Common barriers')} />
+              <BarChart items={barriers.map((item) => ({ label: phrase(item.label), value: item.value, note: localize(item.note) }))} />
             </Card>
           </div>
           <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
             <Card className="space-y-4">
-              <SectionHeading title="Sample-to-pilot conversion" />
+              <SectionHeading title={phrase('Sample-to-pilot conversion')} />
               <div className="space-y-4">
-                <ProgressBar label="Approved samples progressing to pilot orders" value={64} />
+                <ProgressBar label={phrase('Approved samples progressing to pilot orders')} value={64} />
                 <div className="rounded-2xl bg-sand-50 p-4 text-sm leading-7 text-navy-700">
-                  Premium gifting categories convert fastest when packaging and localization are aligned before sampling concludes.
+                  {phrase('Premium gifting categories convert fastest when packaging and localization are aligned before sampling concludes.')}
                 </div>
               </div>
             </Card>
             <Card className="space-y-4">
-              <SectionHeading title="Recent market observations" />
+              <SectionHeading title={phrase('Recent market observations')} />
               <div className="grid gap-4 md:grid-cols-2">
                 {observations.map((observation) => (
                   <div key={observation.title.en} className="rounded-2xl bg-sand-50 p-4">

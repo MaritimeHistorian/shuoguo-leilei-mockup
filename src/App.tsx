@@ -27,7 +27,7 @@ function RequestIntroductionModal({
   introState: IntroState
   onClose: () => void
 }) {
-  const { localize, phrase, t } = useI18n()
+  const { phrase, t } = useI18n()
   const [submitted, setSubmitted] = useState(false)
 
   if (!introState) {

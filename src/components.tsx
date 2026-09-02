@@ -7,6 +7,8 @@ import { useI18n } from './lib/i18n'
 import type { LocalizedText } from './types'
 
 export function LogoMark() {
+  const { phrase } = useI18n()
+
   return (
     <div className="flex items-center gap-3">
       <div
@@ -21,21 +23,21 @@ export function LogoMark() {
         <p className="text-sm font-semibold tracking-[0.22em] text-sage-600 uppercase">
           Tri-Stone
         </p>
-        <p className="text-base font-semibold text-navy-950">Shuoguo Leilei</p>
+        <p className="text-base font-semibold text-navy-950">{phrase('Shuoguo Leilei')}</p>
       </div>
     </div>
   )
 }
 
 export function LanguageToggle() {
-  const { language, toggleLanguage, t } = useI18n()
+  const { language, phrase, toggleLanguage, t } = useI18n()
 
   return (
     <button
       type="button"
       onClick={toggleLanguage}
       className="inline-flex items-center gap-2 rounded-full border border-navy-200 bg-white px-4 py-2 text-sm font-semibold text-navy-800 shadow-sm transition hover:border-sage-400 hover:text-sage-700"
-      aria-label={`Switch language from ${language}`}
+      aria-label={phrase(language === 'en' ? 'Switch language from en' : 'Switch language from zh')}
     >
       <span>{t('language')}</span>
     </button>
@@ -359,7 +361,7 @@ export function PublicShell({
   children: ReactNode
   onOpenSourcingRequest: () => void
 }) {
-  const { t } = useI18n()
+  const { phrase, t } = useI18n()
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(20,70,57,0.12),_transparent_32%),linear-gradient(180deg,#f9f6ef_0%,#f3efe5_55%,#eef4ef_100%)]">
@@ -369,8 +371,8 @@ export function PublicShell({
             <LogoMark />
           </Link>
           <nav className="hidden items-center gap-6 text-sm font-medium text-navy-700 md:flex">
-            <a href="#how-it-works">How it works</a>
-            <a href="#categories">Categories</a>
+            <a href="#how-it-works">{phrase('How it works')}</a>
+            <a href="#categories">{phrase('Categories')}</a>
             <a href="#trust">{t('trustTitle')}</a>
             <Link to="/dashboard">{t('platform')}</Link>
           </nav>
@@ -444,16 +446,16 @@ export function DetailList({
 }: {
   items: Array<{ label: string | LocalizedText; value: string }>
 }) {
-  const { localize } = useI18n()
+  const { localize, phrase } = useI18n()
 
   return (
     <dl className="grid gap-4 md:grid-cols-2">
       {items.map((item) => (
         <div key={`${typeof item.label === 'string' ? item.label : item.label.en}-${item.value}`} className="rounded-2xl bg-sand-50 p-4">
           <dt className="text-xs font-semibold tracking-[0.2em] text-sage-600 uppercase">
-            {typeof item.label === 'string' ? item.label : localize(item.label)}
+            {typeof item.label === 'string' ? phrase(item.label) : localize(item.label)}
           </dt>
-          <dd className="mt-2 text-sm text-navy-800">{item.value}</dd>
+          <dd className="mt-2 text-sm text-navy-800">{phrase(item.value)}</dd>
         </div>
       ))}
     </dl>

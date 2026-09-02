@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { AppShell, Modal, PublicShell } from './components'
@@ -27,7 +27,7 @@ function RequestIntroductionModal({
   introState: IntroState
   onClose: () => void
 }) {
-  const { t } = useI18n()
+  const { phrase, t } = useI18n()
   const [submitted, setSubmitted] = useState(false)
 
   if (!introState) {
@@ -37,7 +37,7 @@ function RequestIntroductionModal({
   return (
     <Modal
       title={t('requestIntroduction')}
-      subtitle={`Managed introduction request for ${introState.subject}`}
+      subtitle={`${phrase('Managed introduction request for')} ${introState.subject}`}
       onClose={() => {
         setSubmitted(false)
         onClose()
@@ -46,7 +46,7 @@ function RequestIntroductionModal({
       {submitted ? (
         <div className="space-y-4">
           <p className="text-sm leading-7 text-navy-700">
-            Your introduction request has been saved locally for follow-up in the prototype workflow.
+            {phrase('Your introduction request has been saved locally for follow-up in the prototype workflow.')}
           </p>
           <button
             type="button"
@@ -67,14 +67,17 @@ function RequestIntroductionModal({
             setSubmitted(true)
           }}
         >
-          <Input label="Your name" placeholder="Tri-Stone opportunity manager" />
-          <Input label="Organization" placeholder="Tri-Stone" />
-          <Input label="Introduction objective" placeholder="Sample review, channel fit, or partner coordination" />
+          <Input label={phrase('Your name')} placeholder={phrase('Tri-Stone opportunity manager')} />
+          <Input label={phrase('Organization')} placeholder="Tri-Stone" />
+          <Input
+            label={phrase('Introduction objective')}
+            placeholder={phrase('Sample review, channel fit, or partner coordination')}
+          />
           <label className="space-y-2 text-sm font-medium text-navy-700">
-            Context
+            {phrase('Context')}
             <textarea
               rows={5}
-              defaultValue={`Please help coordinate a managed introduction regarding ${introState.subject}.`}
+              defaultValue={`${phrase('Please help coordinate a managed introduction regarding')} ${introState.subject}.`}
               className="w-full rounded-2xl border border-navy-200 bg-sand-50 px-4 py-3 outline-none focus:border-sage-500"
             />
           </label>
@@ -109,7 +112,7 @@ function SourcingRequestModal({
   open: boolean
   onClose: () => void
 }) {
-  const { t } = useI18n()
+  const { phrase, t } = useI18n()
   const [submitted, setSubmitted] = useState(false)
 
   if (!open) {
@@ -119,7 +122,7 @@ function SourcingRequestModal({
   return (
     <Modal
       title={t('submitSourcingRequest')}
-      subtitle="Local demonstration form for verified buyer sourcing briefs."
+      subtitle={phrase('Local demonstration form for verified buyer sourcing briefs.')}
       onClose={() => {
         setSubmitted(false)
         onClose()
@@ -128,7 +131,7 @@ function SourcingRequestModal({
       {submitted ? (
         <div className="space-y-4">
           <p className="text-sm leading-7 text-navy-700">
-            {t('success')}. The mock request is stored only in local interface state for this demo.
+            {t('success')}. {phrase('The mock request is stored only in local interface state for this demo.')}
           </p>
           <button
             type="button"
@@ -149,25 +152,25 @@ function SourcingRequestModal({
             setSubmitted(true)
           }}
         >
-          <Input label="Company" placeholder="Shanghai premium retailer" />
-          <Input label="Region" placeholder="Shanghai" />
-          <Input label="Product needed" placeholder="Almonds, citrus, olive oil…" />
-          <Input label="Target timing" placeholder="Golden Week launch" />
-          <Input label="Volume" placeholder="1 reefer, 500 cases, 8 MT…" />
-          <Input label="Packaging needs" placeholder="Gift carton, retail pouch, bulk bag…" />
+          <Input label={phrase('Company')} placeholder={phrase('Shanghai premium retailer')} />
+          <Input label={phrase('Region')} placeholder={phrase('Shanghai')} />
+          <Input label={phrase('Product needed')} placeholder={phrase('Almonds, citrus, olive oil…')} />
+          <Input label={phrase('Target timing')} placeholder={phrase('Golden Week launch')} />
+          <Input label={phrase('Volume')} placeholder={phrase('1 reefer, 500 cases, 8 MT…')} />
+          <Input label={phrase('Packaging needs')} placeholder={phrase('Gift carton, retail pouch, bulk bag…')} />
           <label className="space-y-2 text-sm font-medium text-navy-700 md:col-span-2">
-            Intended use
+            {phrase('Intended use')}
             <textarea
               rows={4}
-              placeholder="Describe channel, merchandising goal, and any compliance or documentation priorities."
+              placeholder={phrase('Describe channel, merchandising goal, and any compliance or documentation priorities.')}
               className="w-full rounded-2xl border border-navy-200 bg-sand-50 px-4 py-3 outline-none focus:border-sage-500"
             />
           </label>
           <label className="space-y-2 text-sm font-medium text-navy-700 md:col-span-2">
-            Certifications & notes
+            {phrase('Certifications & notes')}
             <textarea
               rows={4}
-              placeholder="Organic, BRCGS, local labeling priorities, launch-market notes…"
+              placeholder={phrase('Organic, BRCGS, local labeling priorities, launch-market notes…')}
               className="w-full rounded-2xl border border-navy-200 bg-sand-50 px-4 py-3 outline-none focus:border-sage-500"
             />
           </label>
@@ -306,6 +309,11 @@ export default function App() {
   const [sourcingOpen, setSourcingOpen] = useState(false)
 
   const i18nValue = useMemo(() => createI18nValue(language, setLanguage), [language])
+
+  useEffect(() => {
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en'
+    document.title = language === 'zh' ? '硕果磊磊 | Tri-Stone 原型' : 'Shuoguo Leilei | Tri-Stone Prototype'
+  }, [language])
 
   return (
     <I18nContext.Provider value={i18nValue}>
